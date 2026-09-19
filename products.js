@@ -8,7 +8,7 @@ const DISCORD = "https://discord.gg/scrYgMHvKe";
 //   shopUrl: your store address, e.g. "https://kodeine.mysellauth.com"
 // Payment methods (Stripe, crypto, ...) are connected in the SellAuth dashboard, not here.
 const SELLAUTH = {
-  shopId: null,
+  shopId: 245465,
   shopUrl: ""
 };
 
