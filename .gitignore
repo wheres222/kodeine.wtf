@@ -1,0 +1,8 @@
+.env
+node_modules/
+.claude/
+
+# Old Node checkout server, replaced by the SellAuth embed. Not deployed.
+server.js
+.env.example
+package.json
