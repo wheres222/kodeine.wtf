@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>kodeine.wtf</title>
+<title>cathack.club</title>
+<link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-<link rel="stylesheet" href="style.css?v=1789830000">
+<link rel="stylesheet" href="style.css?v=1790400000">
 </head>
 <body>
 
@@ -20,6 +21,7 @@
       <li><a href="resellers.html"><i class="fa-solid fa-handshake"></i><span>Resellers</span></a></li>
       <li><a class="discord" href="https://discord.gg/scrYgMHvKe" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i><span>Discord</span></a></li>
     </ul>
+    <a class="nav-brand" href="index.html">cathack.club</a>
     <div class="nav-right">
       <button class="signin" type="button" data-auth="login">
         <i class="fa-solid fa-user"></i><span>Sign In</span>
@@ -34,13 +36,26 @@
     <div class="hero-panel"></div>
     <div class="hero-panel"></div>
   </div>
-  <img class="hero-logo" src="afnfsa.png" alt="kodeine.wtf">
+  <div class="hs" id="hero-slider" hidden>
+    <div class="hs-head">
+      <h2 class="hs-title"></h2>
+      <p class="hs-tagline"></p>
+    </div>
+    <div class="hs-stage">
+      <div class="hs-progress"><span></span></div>
+    </div>
+    <div class="hs-bar">
+      <div class="hs-dots" role="tablist" aria-label="Product screenshots"></div>
+      <a class="btn btn-buy hs-buy" href="#"><i class="fa-solid fa-cart-shopping"></i> Purchase</a>
+    </div>
+  </div>
+  <img class="hero-logo" src="logo.png" alt="cathack.club" id="hero-logo">
 </header>
 
 <main class="home">
 
   <section class="intro">
-    <h1>Level up your game with <span>kodeine.wtf</span></h1>
+    <h1>Level up your game with <span>cathack.club</span></h1>
     <p>Pick a product, choose your plan and get access in seconds. Secure checkout, clear status on every product and real support in our Discord.</p>
     <div class="cta-row">
       <a class="btn btn-buy cta" href="products.html"><i class="fa-solid fa-box-open"></i> Browse Products</a>
@@ -68,7 +83,7 @@
   <section class="section">
     <div class="section-head center">
       <div>
-        <h2>Why kodeine.wtf</h2>
+        <h2>Why cathack.club</h2>
         <p>Everything you need to buy with confidence.</p>
       </div>
     </div>
@@ -138,7 +153,6 @@
     <div>
       <h4>Extras</h4>
       <ul>
-        <li><a href="#"><i class="fa-solid fa-trophy"></i>Awards</a></li>
         <li><a href="https://discord.gg/scrYgMHvKe" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i>Discord</a></li>
       </ul>
     </div>
@@ -159,14 +173,15 @@
   </div>
 </footer>
 
-<script src="products.js?v=1789830000"></script>
+<script src="products.js?v=1790400000"></script>
+<script src="hero.js?v=1790400000"></script>
 <script>
   // Show available products first.
   const featured = [...PRODUCTS].sort((a, b) => (a.status.type === "ok" ? 0 : 1) - (b.status.type === "ok" ? 0 : 1));
   document.getElementById("featured").innerHTML = featured.slice(0, 3).map(productCard).join("");
 </script>
-<script src="showcase.js?v=1789830000"></script>
-<script src="policies.js?v=1789830000"></script>
-<script src="auth.js?v=1789830000"></script>
+<script src="showcase.js?v=1790400000"></script>
+<script src="policies.js?v=1790400000"></script>
+<script src="auth.js?v=1790400000"></script>
 </body>
 </html>

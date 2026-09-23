@@ -1,11 +1,13 @@
 // Edit your products here. The products grid and every product page read from this list.
 // sellauthProductId / sellauthVariantId: copy these numbers from your SellAuth dashboard (Products page).
 // Leave a sellauthVariantId as null to let the buyer pick the variant inside the SellAuth checkout.
+// images: screenshots for this product. The first one is its slide in the homepage hero;
+// all of them show in the gallery on the product page.
 const DISCORD = "https://discord.gg/scrYgMHvKe";
 
 // Your SellAuth shop. Both are public values, safe to have in the site:
 //   shopId:  the number shown as Shop ID at dash.sellauth.com/api
-//   shopUrl: your store address, e.g. "https://kodeine.mysellauth.com"
+//   shopUrl: your store address, e.g. "https://cathack.mysellauth.com"
 // Payment methods (Stripe, crypto, ...) are connected in the SellAuth dashboard, not here.
 const SELLAUTH = {
   shopId: 245465,
@@ -17,6 +19,12 @@ const PRODUCTS = [
     id: "product-one",
     name: "Product One",
     sellauthProductId: null,
+    images: [
+      "df4412c254ee524b174ff4dd81f9d499.jpg",
+      "df4412c254ee524b174ff4dd81f9d499.jpg",
+      "df4412c254ee524b174ff4dd81f9d499.jpg",
+      "df4412c254ee524b174ff4dd81f9d499.jpg"
+    ],
     short: "Short description of this product goes here.",
     status: { label: "Undetected", type: "ok" },
     variants: [
@@ -33,6 +41,12 @@ const PRODUCTS = [
     id: "product-two",
     name: "Product Two",
     sellauthProductId: null,
+    images: [
+      "df4412c254ee524b174ff4dd81f9d499.jpg",
+      "df4412c254ee524b174ff4dd81f9d499.jpg",
+      "df4412c254ee524b174ff4dd81f9d499.jpg",
+      "df4412c254ee524b174ff4dd81f9d499.jpg"
+    ],
     short: "Short description of this product goes here.",
     status: { label: "Undetected", type: "ok" },
     variants: [
@@ -48,6 +62,12 @@ const PRODUCTS = [
     id: "product-three",
     name: "Product Three",
     sellauthProductId: null,
+    images: [
+      "df4412c254ee524b174ff4dd81f9d499.jpg",
+      "df4412c254ee524b174ff4dd81f9d499.jpg",
+      "df4412c254ee524b174ff4dd81f9d499.jpg",
+      "df4412c254ee524b174ff4dd81f9d499.jpg"
+    ],
     short: "Short description of this product goes here.",
     status: { label: "Coming Soon", type: "soon" },
     variants: [
@@ -68,7 +88,7 @@ const productCard = p => {
   const from = Math.min(...p.variants.map(v => v.price));
   return `
     <a class="product" href="product.html?id=${p.id}">
-      <div class="product-top"><img src="afnfsa.png" alt=""></div>
+      <div class="product-top"><img src="logo.png" alt=""></div>
       <div class="product-body">
         <h3>${esc(p.name)}</h3>
         <p>${esc(p.short)}</p>

@@ -1,0 +1,128 @@
+// Homepage hero slideshow. One slide per product (its first image), with a timer bar under the picture.
+// Images come from each product's "images" list in products.js; the hero logo is shown instead
+// when there is nothing to show.
+const SLIDE_MS = 7000;   // how long each image stays
+const SLIDE_ANIM = 550;  // image slide, matches .hs-slide in style.css
+const TEXT_FADE = 260;   // title/tagline fade, runs while the image slides
+
+(() => {
+  const hs = document.getElementById("hero-slider");
+  if (!hs || typeof PRODUCTS === "undefined") return;
+
+  // One slide per product: its first image.
+  const slides = PRODUCTS.map(p => ({ src: (p.images || [])[0], product: p })).filter(s => s.src);
+  if (!slides.length) return;
+
+  const logo = document.getElementById("hero-logo");
+  if (logo) logo.hidden = true;
+  hs.hidden = false;
+  document.querySelector(".hero").classList.add("hero-showcase");
+
+  const headEl = hs.querySelector(".hs-head");
+  const titleEl = hs.querySelector(".hs-title");
+  const tagEl = hs.querySelector(".hs-tagline");
+  const stageEl = hs.querySelector(".hs-stage");
+  const barEl = hs.querySelector(".hs-progress span");
+  const dotsEl = hs.querySelector(".hs-dots");
+  const buyEl = hs.querySelector(".hs-buy");
+
+  stageEl.insertAdjacentHTML("afterbegin", slides.map((s, i) =>
+    `<div class="hs-slide off-right" data-i="${i}"><img src="${esc(s.src)}" alt="${esc(s.product.name)} screenshot"></div>`
+  ).join(""));
+  const slideEls = [...stageEl.querySelectorAll(".hs-slide")];
+
+  dotsEl.innerHTML = slides.map((s, i) =>
+    `<button class="hs-dot" type="button" role="tab" data-i="${i}" aria-label="${esc(s.product.name)}, slide ${i + 1}"></button>`
+  ).join("");
+  const dots = [...dotsEl.querySelectorAll(".hs-dot")];
+
+  const stillMode = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let current = -1;
+  let timer = null;
+  let textTimer = null;
+
+  // Jump an element to a position with no animation, so only the intended move is seen.
+  const place = (el, cls) => {
+    el.className = `hs-slide no-anim ${cls}`;
+    void el.offsetWidth; // flush the jump before the transition is allowed again
+  };
+
+  const setText = i => {
+    const s = slides[i];
+    const available = s.product.status.type === "ok";
+    titleEl.textContent = s.product.name;
+    tagEl.textContent = s.product.short;
+    buyEl.href = `product.html?id=${encodeURIComponent(s.product.id)}`;
+    buyEl.classList.toggle("hs-buy-soon", !available);
+    buyEl.innerHTML = available
+      ? `<i class="fa-solid fa-cart-shopping"></i> Purchase`
+      : `<i class="fa-solid fa-clock"></i> ${esc(s.product.status.label)}`;
+  };
+
+  const show = (i, dir = 1) => {
+    if (i === current) return;
+    const previous = current;
+    current = i;
+
+    // Images: the old one slides out, the new one follows it in from the other side.
+    slideEls.forEach((el, n) => {
+      if (n === i || n === previous) return;
+      place(el, dir > 0 ? "off-right" : "off-left");
+    });
+    if (previous > -1) {
+      slideEls[previous].className = `hs-slide ${dir > 0 ? "off-left" : "off-right"}`;
+      place(slideEls[i], dir > 0 ? "off-right" : "off-left");
+    } else {
+      place(slideEls[i], "off-right");
+    }
+    slideEls[i].className = "hs-slide active";
+
+    // Text: fades out and back in while that happens.
+    clearTimeout(textTimer);
+    if (previous === -1 || stillMode) {
+      setText(i);
+    } else {
+      headEl.classList.add("hs-fading");
+      textTimer = setTimeout(() => {
+        setText(i);
+        headEl.classList.remove("hs-fading");
+      }, TEXT_FADE);
+    }
+
+    dots.forEach((d, n) => {
+      d.classList.toggle("active", n === i);
+      d.setAttribute("aria-selected", n === i);
+    });
+
+    // Restart the timer bar from zero.
+    barEl.style.animation = "none";
+    void barEl.offsetWidth;
+    barEl.style.animation = stillMode ? "none" : `hs-fill ${SLIDE_MS}ms linear forwards`;
+  };
+
+  const next = () => show((current + 1) % slides.length, 1);
+  const stop = () => { clearInterval(timer); timer = null; };
+  const start = () => {
+    stop();
+    if (!stillMode && slides.length > 1) timer = setInterval(next, SLIDE_MS);
+  };
+
+  dotsEl.addEventListener("click", e => {
+    const dot = e.target.closest(".hs-dot");
+    if (!dot) return;
+    const i = +dot.dataset.i;
+    show(i, i > current ? 1 : -1);
+    start();
+  });
+
+  // Hovering holds the current slide, so a screenshot can be looked at properly.
+  hs.addEventListener("mouseenter", () => { stop(); barEl.style.animationPlayState = "paused"; });
+  hs.addEventListener("mouseleave", () => {
+    if (!stillMode) { barEl.style.animationPlayState = "running"; start(); }
+  });
+  // Don't let slides pile up while the tab is in the background.
+  document.addEventListener("visibilitychange", () => document.hidden ? stop() : start());
+
+  show(0);
+  start();
+})();

@@ -7,7 +7,7 @@
     <div class="modal auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
       <button class="modal-close" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
       <div class="modal-head">
-        <img class="auth-logo" src="afnfsa.png" alt="">
+        <img class="auth-logo" src="logo.png" alt="">
         <h2 id="auth-title">Welcome back</h2>
       </div>
       <div class="modal-divider"><span></span></div>
