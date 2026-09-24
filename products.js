@@ -108,4 +108,18 @@ const productCard = p => {
     </a>`;
 };
 
+// Live catalog: fetch products from the panel's storefront feed (which pulls them
+// from SellAuth server-side). Falls back to the PRODUCTS list above if the panel
+// is unreachable or hasn't been configured with a SellAuth key yet.
+async function getProducts() {
+  try {
+    const r = await fetch(`${PANEL_URL}/api/v1/storefront/products`, { cache: "no-store" });
+    if (r.ok) {
+      const data = await r.json();
+      if (Array.isArray(data.products) && data.products.length) return data.products;
+    }
+  } catch (_) { /* offline / not configured → fall back */ }
+  return PRODUCTS;
+}
+
 if (typeof module !== "undefined") module.exports = { PRODUCTS };

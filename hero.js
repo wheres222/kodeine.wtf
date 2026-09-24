@@ -5,12 +5,30 @@ const SLIDE_MS = 7000;   // how long each image stays
 const SLIDE_ANIM = 550;  // image slide, matches .hs-slide in style.css
 const TEXT_FADE = 260;   // title/tagline fade, runs while the image slides
 
-(() => {
+(async () => {
   const hs = document.getElementById("hero-slider");
-  if (!hs || typeof PRODUCTS === "undefined") return;
+  if (!hs || typeof getProducts !== "function") return;
 
-  // One slide per product: its first image.
-  const slides = PRODUCTS.map(p => ({ src: (p.images || [])[0], product: p })).filter(s => s.src);
+  const catalog = await getProducts();
+  // Fixed lead slide (menu screenshot), then one slide per product (its first image).
+  const lead = {
+    src: "menu.png",
+    title: "cathack.club",
+    tagline: "Undetected software, delivered instantly.",
+    href: "products.html",
+    available: true,
+  };
+  const productSlides = catalog
+    .map(p => ({
+      src: (p.images || [])[0],
+      title: p.name,
+      tagline: p.short,
+      href: `product.html?id=${encodeURIComponent(p.id)}`,
+      available: p.status.type === "ok",
+      soonLabel: p.status.label,
+    }))
+    .filter(s => s.src);
+  const slides = [lead, ...productSlides];
   if (!slides.length) return;
 
   const logo = document.getElementById("hero-logo");
@@ -27,12 +45,12 @@ const TEXT_FADE = 260;   // title/tagline fade, runs while the image slides
   const buyEl = hs.querySelector(".hs-buy");
 
   stageEl.insertAdjacentHTML("afterbegin", slides.map((s, i) =>
-    `<div class="hs-slide off-right" data-i="${i}"><img src="${esc(s.src)}" alt="${esc(s.product.name)} screenshot"></div>`
+    `<div class="hs-slide off-right" data-i="${i}"><img src="${esc(s.src)}" alt="${esc(s.title)} screenshot"></div>`
   ).join(""));
   const slideEls = [...stageEl.querySelectorAll(".hs-slide")];
 
   dotsEl.innerHTML = slides.map((s, i) =>
-    `<button class="hs-dot" type="button" role="tab" data-i="${i}" aria-label="${esc(s.product.name)}, slide ${i + 1}"></button>`
+    `<button class="hs-dot" type="button" role="tab" data-i="${i}" aria-label="${esc(s.title)}, slide ${i + 1}"></button>`
   ).join("");
   const dots = [...dotsEl.querySelectorAll(".hs-dot")];
 
@@ -49,14 +67,13 @@ const TEXT_FADE = 260;   // title/tagline fade, runs while the image slides
 
   const setText = i => {
     const s = slides[i];
-    const available = s.product.status.type === "ok";
-    titleEl.textContent = s.product.name;
-    tagEl.textContent = s.product.short;
-    buyEl.href = `product.html?id=${encodeURIComponent(s.product.id)}`;
-    buyEl.classList.toggle("hs-buy-soon", !available);
-    buyEl.innerHTML = available
-      ? `<i class="fa-solid fa-cart-shopping"></i> Purchase`
-      : `<i class="fa-solid fa-clock"></i> ${esc(s.product.status.label)}`;
+    titleEl.textContent = s.title;
+    tagEl.textContent = s.tagline;
+    buyEl.href = s.href;
+    buyEl.classList.toggle("hs-buy-soon", !s.available);
+    buyEl.innerHTML = s.available
+      ? `<i class="fa-solid fa-cart-shopping"></i> ${s.href === "products.html" ? "Browse Products" : "Purchase"}`
+      : `<i class="fa-solid fa-clock"></i> ${esc(s.soonLabel || "Coming Soon")}`;
   };
 
   const show = (i, dir = 1) => {

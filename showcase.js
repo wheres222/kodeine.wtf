@@ -3,11 +3,10 @@
 //   2. Add an entry below. Images show as a 3-column grid, in this order.
 // "title" and "caption" are optional and appear when an image is opened full size.
 const SHOWCASE = [
-  { src: "df4412c254ee524b174ff4dd81f9d499.jpg", title: "Example Image", caption: "Replace these with your own screenshots." },
-  { src: "df4412c254ee524b174ff4dd81f9d499.jpg", title: "Menu", caption: "Clean, easy-to-use menu." },
-  { src: "df4412c254ee524b174ff4dd81f9d499.jpg", title: "In Game", caption: "See it in action." },
-  { src: "df4412c254ee524b174ff4dd81f9d499.jpg", title: "Settings", caption: "Tune everything to your liking." },
-  { src: "df4412c254ee524b174ff4dd81f9d499.jpg", title: "Customization", caption: "Colors, layouts and more." }
+  { src: "menu.png", title: "Menu", caption: "Clean, easy-to-use in-game menu." },
+  { src: "scientist.png", title: "Rust", caption: "In-game view." },
+  { src: "skeleton1.png", title: "Rust", caption: "ESP and visuals." },
+  { src: "z.png", title: "Rust", caption: "See it in action." }
 ];
 
 (() => {
