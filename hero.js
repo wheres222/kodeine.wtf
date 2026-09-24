@@ -10,14 +10,14 @@ const TEXT_FADE = 260;   // title/tagline fade, runs while the image slides
   if (!hs || typeof getProducts !== "function") return;
 
   const catalog = await getProducts();
-  // Fixed lead slide (menu screenshot), then one slide per product (its first image).
-  const lead = {
-    src: "menu.png",
+  // Fixed lead slides (showcase screenshots), then one slide per product (its first image).
+  const lead = ["menu.png", "xx.png", "4444.png"].map(src => ({
+    src,
     title: "cathack.club",
     tagline: "Undetected software, delivered instantly.",
     href: "products.html",
     available: true,
-  };
+  }));
   const productSlides = catalog
     .map(p => ({
       src: (p.images || [])[0],
@@ -28,7 +28,7 @@ const TEXT_FADE = 260;   // title/tagline fade, runs while the image slides
       soonLabel: p.status.label,
     }))
     .filter(s => s.src);
-  const slides = [lead, ...productSlides];
+  const slides = [...lead, ...productSlides];
   if (!slides.length) return;
 
   const logo = document.getElementById("hero-logo");

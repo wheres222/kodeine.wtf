@@ -6,7 +6,9 @@ const SHOWCASE = [
   { src: "menu.png", title: "Menu", caption: "Clean, easy-to-use in-game menu." },
   { src: "scientist.png", title: "Rust", caption: "In-game view." },
   { src: "skeleton1.png", title: "Rust", caption: "ESP and visuals." },
-  { src: "z.png", title: "Rust", caption: "See it in action." }
+  { src: "z.png", title: "Rust", caption: "See it in action." },
+  { src: "213123.png", title: "In Game", caption: "Live gameplay." },
+  { src: "744.png", title: "In Game", caption: "Full feature set." }
 ];
 
 (() => {
