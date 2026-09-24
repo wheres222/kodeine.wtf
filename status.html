@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-<link rel="stylesheet" href="style.css?v=1790800000">
+<link rel="stylesheet" href="style.css?v=1790900000">
 </head>
 <body>
 
@@ -109,8 +109,8 @@
   </div>
 </footer>
 
-<script src="products.js?v=1790800000"></script>
-<script src="status.js?v=1790800000"></script>
+<script src="products.js?v=1790900000"></script>
+<script src="status.js?v=1790900000"></script>
 <script>
   const row = (name, st, extra = "") => `
     <div class="status-row">
@@ -118,22 +118,26 @@
       <div class="status-right">${extra}<span class="status ${st.type}">${esc(st.label)}</span></div>
     </div>`;
 
-  document.getElementById("status-products").innerHTML = PRODUCTS.map(p =>
-    row(p.name, p.status, `<a class="status-link" href="product.html?id=${p.id}">View</a>`)).join("");
   document.getElementById("status-services").innerHTML = SERVICES.map(s => row(s.name, s.status)).join("");
   document.getElementById("status-updated").textContent = "Last updated " + STATUS_UPDATED;
 
-  // Overall banner: worst status wins (coming soon doesn't count as a problem).
-  const all = [...PRODUCTS.map(p => p.status.type), ...SERVICES.map(s => s.status.type)];
-  const [cls, icon, text] = all.includes("down")
-    ? ["down", "fa-circle-xmark", "Some products or services are down"]
-    : all.includes("updating")
-      ? ["updating", "fa-rotate", "Some products are updating"]
-      : ["ok", "fa-circle-check", "All systems operational"];
-  document.getElementById("status-banner").className = "status-banner " + cls;
-  document.getElementById("status-banner").innerHTML = `<i class="fa-solid ${icon}"></i><span>${text}</span>`;
+  // Products come live from the SellAuth catalog (falls back to the built-in list).
+  getProducts().then(list => {
+    document.getElementById("status-products").innerHTML = list.map(p =>
+      row(p.name, p.status, `<a class="status-link" href="product.html?id=${p.id}">View</a>`)).join("");
+
+    // Overall banner: worst status wins (coming soon doesn't count as a problem).
+    const all = [...list.map(p => p.status.type), ...SERVICES.map(s => s.status.type)];
+    const [cls, icon, text] = all.includes("down")
+      ? ["down", "fa-circle-xmark", "Some products or services are down"]
+      : all.includes("updating")
+        ? ["updating", "fa-rotate", "Some products are updating"]
+        : ["ok", "fa-circle-check", "All systems operational"];
+    document.getElementById("status-banner").className = "status-banner " + cls;
+    document.getElementById("status-banner").innerHTML = `<i class="fa-solid ${icon}"></i><span>${text}</span>`;
+  });
 </script>
-<script src="policies.js?v=1790800000"></script>
-<script src="auth.js?v=1790800000"></script>
+<script src="policies.js?v=1790900000"></script>
+<script src="auth.js?v=1790900000"></script>
 </body>
 </html>
