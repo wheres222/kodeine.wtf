@@ -21,7 +21,7 @@ const PANEL_URL = (location.hostname === "localhost" || location.hostname === "1
 // Payment methods (Stripe, crypto, ...) are connected in the SellAuth dashboard, not here.
 const SELLAUTH = {
   shopId: 245465,
-  shopUrl: ""
+  shopUrl: "https://cathack.mysellauth.com"
 };
 
 const PRODUCTS = [
