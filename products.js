@@ -5,6 +5,16 @@
 // all of them show in the gallery on the product page.
 const DISCORD = "https://discord.gg/scrYgMHvKe";
 
+// The reseller/user panel (the separate Next.js backend). Sign In and the reseller
+// buttons send people here. Locally it's the dev server; in production set PANEL.prod
+// to wherever the panel is hosted, e.g. "https://panel.cathack.club".
+const PANEL = {
+  local: "http://localhost:3000",
+  prod: "https://panel.cathack.club"
+};
+const PANEL_URL = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+  ? PANEL.local : PANEL.prod;
+
 // Your SellAuth shop. Both are public values, safe to have in the site:
 //   shopId:  the number shown as Shop ID at dash.sellauth.com/api
 //   shopUrl: your store address, e.g. "https://cathack.mysellauth.com"
