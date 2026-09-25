@@ -7,10 +7,10 @@ const DISCORD = "https://discord.gg/scrYgMHvKe";
 
 // The reseller/user panel (the separate Next.js backend). Sign In and the reseller
 // buttons send people here. Locally it's the dev server; in production set PANEL.prod
-// to wherever the panel is hosted, e.g. "https://panel.cathack.club".
+// to wherever the panel is hosted, e.g. "https://panel.kodeine.wtf".
 const PANEL = {
   local: "http://localhost:3000",
-  prod: "https://panel.cathack.club"
+  prod: "https://panel.kodeine.wtf"
 };
 const PANEL_URL = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
   ? PANEL.local : PANEL.prod;

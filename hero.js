@@ -13,14 +13,15 @@ const TEXT_FADE = 260;   // title/tagline fade, runs while the image slides
   // Fixed lead slides (showcase screenshots), then one slide per product (its first image).
   const lead = ["menu.png", "xx.png", "4444.png"].map(src => ({
     src,
-    title: "cathack.club",
+    title: "kodeine.wtf",
     tagline: "Undetected software, delivered instantly.",
     href: "products.html",
     available: true,
   }));
   const productSlides = catalog
     .map(p => ({
-      src: (p.images || [])[0],
+      // Skip the product's cover/logo (first image); use the first real screenshot.
+      src: (p.images || [])[1],
       title: p.name,
       tagline: p.short,
       href: `product.html?id=${encodeURIComponent(p.id)}`,

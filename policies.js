@@ -5,7 +5,7 @@ const POLICIES = {
     icon: "fa-solid fa-ban",
     body: `
       <h3>All Sales Are Final</h3>
-      <p>Every cathack.club product is digital and delivered instantly. Once your order is complete it can't be refunded, whatever the reason.</p>
+      <p>Every kodeine.wtf product is digital and delivered instantly. Once your order is complete it can't be refunded, whatever the reason.</p>
 
       <h3>Why We Can't Offer Refunds</h3>
       <p>Access to our software is granted the moment you pay. Digital access can't be handed back, and we have no reliable way to confirm whether a product was used after delivery.</p>
@@ -20,7 +20,7 @@ const POLICIES = {
       </ul>
 
       <h3>Chargebacks</h3>
-      <p>Opening a chargeback or payment dispute breaks our terms of service. Accounts involved in a chargeback are permanently banned from cathack.club. If something is wrong, contact us on Discord first and we'll do our best to help.</p>`
+      <p>Opening a chargeback or payment dispute breaks our terms of service. Accounts involved in a chargeback are permanently banned from kodeine.wtf. If something is wrong, contact us on Discord first and we'll do our best to help.</p>`
   },
   privacy: {
     title: "Privacy Policy",
@@ -52,7 +52,7 @@ const POLICIES = {
       <p>Your purchase is for you only. Sharing, reselling or giving away your key, download or account is not allowed and will get your access revoked without a refund.</p>
 
       <h3>2. No Cracking or Redistribution</h3>
-      <p>Do not try to crack, reverse engineer, modify or re-upload any cathack.club product. Leaking our software leads to a permanent ban.</p>
+      <p>Do not try to crack, reverse engineer, modify or re-upload any kodeine.wtf product. Leaking our software leads to a permanent ban.</p>
 
       <h3>3. Respect Everyone</h3>
       <p>Treat staff and other members with respect. Harassment, hate speech, threats and spam are not tolerated on the site or in our Discord.</p>

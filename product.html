@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Products - cathack.club</title>
+<title>Products - kodeine.wtf</title>
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-<link rel="stylesheet" href="style.css?v=1791000000">
+<link rel="stylesheet" href="style.css?v=1791200000">
 </head>
 <body>
 
@@ -21,7 +21,7 @@
       <li><a href="resellers.html"><i class="fa-solid fa-handshake"></i><span>Resellers</span></a></li>
       <li><a class="discord" href="https://discord.gg/scrYgMHvKe" target="_blank" rel="noopener"><i class="fa-brands fa-discord"></i><span>Discord</span></a></li>
     </ul>
-    <a class="nav-brand" href="index.html">cathack.club</a>
+    <a class="nav-brand" href="index.html">kodeine.wtf</a>
     <div class="nav-right">
       <button class="signin" type="button" data-auth="login">
         <i class="fa-solid fa-user"></i><span>Sign In</span>
@@ -45,7 +45,7 @@
       <div class="about-proof">
         <a class="proof-badge" href="https://www.elitepvpers.com" target="_blank" rel="noopener"><i class="fa-solid fa-comments"></i> elitepvpers</a>
         <!-- Trustpilot slot: add <script src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script> before </body>, then uncomment and set data-businessunit-id:
-        <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="YOUR_TRUSTPILOT_ID" data-style-height="52px" data-style-width="100%"><a href="https://www.trustpilot.com/review/cathack.club" target="_blank" rel="noopener">Trustpilot</a></div>
+        <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="YOUR_TRUSTPILOT_ID" data-style-height="52px" data-style-width="100%"><a href="https://www.trustpilot.com/review/kodeine.wtf" target="_blank" rel="noopener">Trustpilot</a></div>
         -->
       </div>
       <p>If you want to contact us, join our <a href="https://discord.gg/scrYgMHvKe" target="_blank" rel="noopener">Discord</a>.</p>
@@ -82,7 +82,7 @@
 </footer>
 
 <script src="https://static.sellauth.com/embed/v3.min.js" defer></script>
-<script src="products.js?v=1791000000"></script>
+<script src="products.js?v=1791200000"></script>
 <script>
   const root = document.getElementById("product");
   const id = new URLSearchParams(location.search).get("id");
@@ -93,10 +93,11 @@
   if (!p) {
     root.innerHTML = `<div class="empty">Product not found. <a href="products.html">Back to products</a></div>`;
   } else {
-    document.title = p.name + " - cathack.club";
+    document.title = p.name + " - kodeine.wtf";
     document.getElementById("p-title").textContent = p.name;
-    // Gallery images come from the product's "images" list; the logo stands in if there are none.
-    const gallery = (p.images && p.images.length) ? p.images : ["logo.png"];
+    // Drop the cover/logo (first image) and show only the screenshots.
+    const shots = (p.images || []).slice(1);
+    const gallery = shots.length ? shots : ["logo.png"];
     const list = arr => `<ul class="checklist">${arr.map(i => `<li><i class="fa-solid fa-check"></i>${esc(i)}</li>`).join("")}</ul>`;
 
     root.innerHTML = `
@@ -212,7 +213,7 @@
   }
   });
 </script>
-<script src="policies.js?v=1791000000"></script>
-<script src="auth.js?v=1791000000"></script>
+<script src="policies.js?v=1791200000"></script>
+<script src="auth.js?v=1791200000"></script>
 </body>
 </html>
