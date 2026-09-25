@@ -10,7 +10,7 @@ const DISCORD = "https://discord.gg/scrYgMHvKe";
 // to wherever the panel is hosted, e.g. "https://panel.kodeine.wtf".
 const PANEL = {
   local: "http://localhost:3000",
-  prod: "https://panel.kodeine.wtf"
+  prod: "https://panel.cathack.club"
 };
 const PANEL_URL = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
   ? PANEL.local : PANEL.prod;
