@@ -154,8 +154,17 @@
       const v = p.variants[i];
       buttons.forEach(b => b.classList.toggle("selected", +b.dataset.i === i));
       document.getElementById("pd-price").textContent = money(v.price);
-      buyBtn.textContent = available ? `Purchase ${v.name} — ${money(v.price)}` : p.status.label;
-      errorEl.textContent = "";
+      if (available) {
+        buyBtn.style.display = "";
+        buyBtn.textContent = `Purchase ${v.name} — ${money(v.price)}`;
+        errorEl.className = "buy-error";
+        errorEl.textContent = "";
+      } else {
+        // Not operational → no checkout, just a clear out-of-stock message.
+        buyBtn.style.display = "none";
+        errorEl.className = "buy-error oos";
+        errorEl.textContent = "This Product Is Currently Out Of Stock";
+      }
     };
     buttons.forEach(b => b.addEventListener("click", () => select(+b.dataset.i)));
     select(0);
@@ -163,6 +172,7 @@
 
     // Checkout runs on SellAuth (email, payment and delivery all happen there), so no server is needed.
     buyBtn.addEventListener("click", () => {
+      if (!available) return;
       const shopUrl = String(SELLAUTH.shopUrl || "").replace(/\/+$/, "");
       if (!SELLAUTH.shopId || !shopUrl || !p.sellauthProductId) {
         errorEl.textContent = "Checkout isn't set up for this product yet. Please ask in our Discord.";

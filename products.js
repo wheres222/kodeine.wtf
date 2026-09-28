@@ -111,15 +111,32 @@ const productCard = p => {
 // Live catalog: fetch products from the panel's storefront feed (which pulls them
 // from SellAuth server-side). Falls back to the PRODUCTS list above if the panel
 // is unreachable or hasn't been configured with a SellAuth key yet.
+// Admin-set status overrides (from the panel's Status control), keyed by product id.
+async function getStatusOverrides() {
+  try {
+    const r = await fetch(`${PANEL_URL}/api/v1/storefront/status`, { cache: "no-store" });
+    if (r.ok) return await r.json();
+  } catch (_) { /* offline → no overrides */ }
+  return { products: {}, services: {}, updated: "" };
+}
+
 async function getProducts() {
+  let list = PRODUCTS;
   try {
     const r = await fetch(`${PANEL_URL}/api/v1/storefront/products`, { cache: "no-store" });
     if (r.ok) {
       const data = await r.json();
-      if (Array.isArray(data.products) && data.products.length) return data.products;
+      if (Array.isArray(data.products) && data.products.length) list = data.products;
     }
   } catch (_) { /* offline / not configured → fall back */ }
-  return PRODUCTS;
+
+  // Apply admin status overrides so every page (cards, product page, hero) shows
+  // the same status as the status page.
+  const ov = await getStatusOverrides();
+  if (ov && ov.products) {
+    list = list.map(p => (ov.products[p.id] ? { ...p, status: ov.products[p.id] } : p));
+  }
+  return list;
 }
 
 if (typeof module !== "undefined") module.exports = { PRODUCTS };

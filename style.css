@@ -445,6 +445,7 @@
   .btn-buy { font: inherit; font-weight: 700; cursor: pointer; width: 100%; }
   .btn-buy:disabled { background: #3a3a3a; border-color: #3a3a3a; color: #9a9a9a; cursor: not-allowed; }
   .buy-error { color: #ff7b7b; font-size: 12px; min-height: 1em; }
+  .buy-error.oos { color: #ff5a5a; font-size: 16px; font-weight: 700; text-align: center; padding: 14px 0; letter-spacing: .3px; }
   .pd-note a { color: #fff; text-decoration: underline; }
 
   /* ---------- Sign in button ---------- */
