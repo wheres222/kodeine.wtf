@@ -124,11 +124,25 @@
       <div class="status-right">${extra}<span class="status ${st.type}">${esc(st.label)}</span></div>
     </div>`;
 
-  document.getElementById("status-services").innerHTML = SERVICES.map(s => row(s.name, s.status)).join("");
-  document.getElementById("status-updated").textContent = "Last updated " + STATUS_UPDATED;
+  async function loadStatus() {
+    // Admins set statuses in the panel (Status control); served from its public feed.
+    let overrides = { products: {}, services: {}, updated: "" };
+    try {
+      const r = await fetch(PANEL_URL + "/api/v1/storefront/status", { cache: "no-store" });
+      if (r.ok) overrides = await r.json();
+    } catch (_) {}
 
-  // Products come live from the SellAuth catalog (falls back to the built-in list).
-  getProducts().then(list => {
+    SERVICES.forEach(s => {
+      if (overrides.services && overrides.services[s.name]) s.status = overrides.services[s.name];
+    });
+    document.getElementById("status-services").innerHTML = SERVICES.map(s => row(s.name, s.status)).join("");
+    document.getElementById("status-updated").textContent = "Last updated " + (overrides.updated || STATUS_UPDATED);
+
+    // Products come live from the SellAuth catalog (falls back to the built-in list).
+    const list = await getProducts();
+    list.forEach(p => {
+      if (overrides.products && overrides.products[p.id]) p.status = overrides.products[p.id];
+    });
     document.getElementById("status-products").innerHTML = list.map(p =>
       row(p.name, p.status, `<a class="status-link" href="product.html?id=${p.id}">View</a>`)).join("");
 
@@ -141,7 +155,8 @@
         : ["ok", "fa-circle-check", "All systems operational"];
     document.getElementById("status-banner").className = "status-banner " + cls;
     document.getElementById("status-banner").innerHTML = `<i class="fa-solid ${icon}"></i><span>${text}</span>`;
-  });
+  }
+  loadStatus();
 </script>
 <script src="policies.js?v=1791300000"></script>
 <script src="auth.js?v=1791300000"></script>
